@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">	
+
+<struts>
+    <!-- devMode is helpful when you want some extra logs for debugging -->
+    <constant name="struts.devMode" value="false" />
+    <!-- Global message resource; 
+    	 Otherwise you will have seperate message resource for each Action 
+    -->
+    <constant name="struts.custom.i18n.resources" value="messages" /> 
+    <!-- 
+    	This is important if you are planning to have slashes in Action URLs
+    	e.g. In this demo, employee is deleted using URL /delete/10
+    	This this is set to false; then struts will try to find mapping for 
+    	URL "/10" instaed of "/delete/10"
+     -->
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <constant name="struts.mapper.action.prefix.enabled" value="true" />
+     
+     
+     
+     
+     <!-- <package name="user" extends="struts-default" namespace="/">
+        <result-types>
+        	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+       </result-types>
+        <action name="user" class="user" method="execute">
+            <result name="user" type="tiles">mainTemplate</result>
+        </action>
+        <action name="*menu" class="user" method="{1}">
+            <result name="user" type="tiles">mainTemplate</result>
+            <result name="madhuri" type="tiles">madhuri</result>
+            <result name="alia" type="tiles">alia</result>
+            <result name="addUser" type="tiles">success</result>
+        </action>
+    </package> -->
+    
+    
+    
+    
+    <!-- Normal Action mappings are defined here -->
+	<package name="welcome" namespace="/" extends="struts-default">
+	   	<result-types>
+        	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+       </result-types>
+       <action name="welcome" class="welcomeAction" method="execute">
+            <result name="welcome" type="tiles">baseTemplate</result>
+        </action>
+       
+		<action name="departmentList" class="editDepartmentAction" method="listDepartments">
+			<result name="departmentList" type="tiles">departmentList</result>
+		</action>
+		<action name="addDepartment" class="editDepartmentAction" method="addDepartment">
+			<result type="redirect">/departmentList</result>
+		</action>
+		<action name="deleteDepartment/*" class="editDepartmentAction" method="deleteDepartment">
+		    <param name="department.id">{1}</param>
+			<result type="redirect">/departmentList</result>
+		</action> 
+		
+		<action name="editDepartment/*" class="editDepartmentAction" method="editDepartment">
+		    <param name="department.id">{1}</param>
+			<result name="editDepartment" type="tiles">editDepartment</result>
+		</action> 
+		
+		<action name="*" class="welcomeAction" method="execute">
+		  <result name="welcome" type="tiles">baseTemplate</result>
+		</action>
+		
+		
+		<action name="employeeList" class="editEmployeeAction" method="listEmployees">
+			<result name="employeeList" type="tiles">employeeList</result>
+		</action>
+		<action name="addEmployee" class="editEmployeeAction" method="addEmployee">
+			<result type="redirect">/employeeList</result>
+		</action>
+		<action name="deleteEmployee/*" class="editEmployeeAction" method="deleteEmployee">
+		    <param name="employee.id">{1}</param>
+			<result type="redirect">/employeeList</result>
+		</action> 
+		
+		<action name="editEmployee/*" class="editEmployeeAction" method="editEmployee">
+		    <param name="employee.id">{1}</param>
+			<result name="editEmployee" type="tiles">editEmployee</result>
+		</action> 
+		
+	</package>
+	
+</struts>
